@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ian Grant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+    :root{
+      --green:#39ff14;
+      --bg:#0b0b0b;
+      --soft:#b7ffb0;
+      --text:#eaffea;
+
+      /* ===== GLOW CONTROLS ===== */
+      --glow-text: 0.45;
+      --glow-title: 0.75;
+      --glow-button: 0.65;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:linear-gradient(180deg, #050505, #0b0b0b);
+      color:var(--soft);
+      font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      animation: glow-pulse 6s ease-in-out infinite;
+    }
+
+    /* ===== GLOBAL TEXT GLOW ===== */
+    body, p, a, h1, h2, h3, h4, h5, h6, span, button {
+      text-shadow:
+        0 0 calc(2px * var(--glow-text)) rgba(234,255,234,0.55),
+        0 0 calc(8px * var(--glow-text)) rgba(57,255,20,0.35),
+        0 0 calc(18px * var(--glow-text)) rgba(57,255,20,0.20),
+        0 0 calc(36px * var(--glow-text)) rgba(57,255,20,0.08);
+    }
+
+    /* ===== GLOBAL SCANLINES ===== */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.045) 0px,
+        rgba(255,255,255,0.045) 1px,
+        transparent 3px
+      );
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+      animation: scan-drift 14s linear infinite;
+    }
+
+    /* ================= NAV ================= */
+    nav{
+      display:flex;
+      gap:32px;
+      padding:18px 20px;
+      border-bottom:1px solid #1f1f1f;
+    }
+
+    nav a{
+      color:#dfffe0;
+      text-decoration:none;
+      font-weight:600;
+      font-size:15px;
+      letter-spacing:.3px;
+    }
+
+    nav a:hover{ color:var(--green); }
+
+    /* ================= LAYOUT ================= */
+    .wrap{
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 96px 20px 120px;
+    }
+
+    /* ================= HERO ================= */
+    h1{
+      margin:0 0 18px;
+      font-size: clamp(44px, 7vw, 76px);
+      font-weight:800;
+      letter-spacing:-1px;
+      color:var(--text);
+      text-shadow:
+        0 0 calc(3px * var(--glow-title)) rgba(234,255,234,0.9),
+        0 0 calc(14px * var(--glow-title)) rgba(57,255,20,0.7),
+        0 0 calc(32px * var(--glow-title)) rgba(57,255,20,0.45),
+        0 0 calc(64px * var(--glow-title)) rgba(57,255,20,0.25),
+        0 0 calc(120px * var(--glow-title)) rgba(57,255,20,0.12);
+    }
+
+    .tagline{
+      font-size: clamp(16px, 2.4vw, 20px);
+      line-height:1.6;
+      max-width:620px;
+      margin-bottom:52px;
+      color:#bdebbd;
+    }
+
+    /* ================= BUTTONS ================= */
+    .hero-actions{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:16px 22px;
+      border-radius:12px;
+      border:1px solid #2a2a2a;
+      background:#0e0e0e;
+      color:#eaffea;
+      text-decoration:none;
+      font-weight:600;
+      min-width:240px;
+      text-align:center;
+      transition:.2s ease;
+      box-shadow:
+        0 0 calc(10px * var(--glow-button)) rgba(57,255,20,0.18),
+        0 0 calc(24px * var(--glow-button)) rgba(57,255,20,0.10);
+    }
+
+    .btn.primary{
+      background:var(--green);
+      color:#000;
+      border-color:var(--green);
+      box-shadow:
+        0 0 calc(16px * var(--glow-button)) rgba(57,255,20,0.9),
+        0 0 calc(40px * var(--glow-button)) rgba(57,255,20,0.7),
+        0 0 calc(80px * var(--glow-button)) rgba(57,255,20,0.45),
+        0 0 calc(140px * var(--glow-button)) rgba(57,255,20,0.25);
+    }
+
+    .btn:hover{
+      box-shadow:
+        0 0 calc(22px * var(--glow-button)) rgba(57,255,20,1),
+        0 0 calc(60px * var(--glow-button)) rgba(57,255,20,0.85),
+        0 0 calc(120px * var(--glow-button)) rgba(57,255,20,0.55),
+        0 0 calc(200px * var(--glow-button)) rgba(57,255,20,0.35);
+    }
+
+    /* ================= SCANLINES ON TEXT ================= */
+    .scan-text{
+      position:relative;
+    }
+
+    .scan-text::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35) 0px,
+        rgba(0,0,0,0.35) 1px,
+        transparent 2px
+      );
+      opacity:.65;
+      mix-blend-mode:multiply;
+      animation: scan-drift 9s linear infinite;
+    }
+
+    h1.scan-text::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.12) 0px,
+        rgba(255,255,255,0.12) 1px,
+        transparent 3px
+      );
+      opacity:.45;
+      mix-blend-mode:overlay;
+    }
+
+    @keyframes scan-drift{
+      from{ background-position:0 0; }
+      to{ background-position:0 140px; }
+    }
+
+    @keyframes glow-pulse{
+      0%,100%{ opacity:1; }
+      50%{ opacity:.96; }
+    }
+
+    @media (max-width:640px){
+      :root{
+        --glow-text: 0.4;
+        --glow-button: 0.55;
+      }
+      .btn{ width:100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="https://iangrantart.com" target="_blank">Art</a>
+    <a href="it.html">IT</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main class="wrap">
+    <h1 class="scan-text">Ian Grant</h1>
+
+    <p class="tagline scan-text">
+      Entry-Level IT Support &amp; Systems Technician<br>
+      Artist working at the intersection of creativity and technology
+    </p>
+
+    <div class="hero-actions">
+      <a class="btn primary scan-text" href="it.html">View IT Resume</a>
+      <a class="btn scan-text" href="https://iangrantart.com" target="_blank">
+        View Art Portfolio
+      </a>
+    </div>
+  </main>
+</body>
+</html>
