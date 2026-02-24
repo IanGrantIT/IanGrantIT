@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact | Ian Grant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+    :root{
+      --green:#39ff14;
+      --bg:#0b0b0b;
+      --soft:#b7ffb0;
+      --text:#eaffea;
+
+      --glow-text: 0.45;
+      --glow-title: 0.75;
+      --glow-button: 0.65;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      background:linear-gradient(180deg, #050505, #0b0b0b);
+      color:var(--soft);
+      font-family:'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      animation: glow-pulse 6s ease-in-out infinite;
+    }
+
+    body, p, a, h1, h2, span, button {
+      text-shadow:
+        0 0 calc(2px * var(--glow-text)) rgba(234,255,234,0.55),
+        0 0 calc(8px * var(--glow-text)) rgba(57,255,20,0.35),
+        0 0 calc(18px * var(--glow-text)) rgba(57,255,20,0.20),
+        0 0 calc(36px * var(--glow-text)) rgba(57,255,20,0.08);
+    }
+
+    /* GLOBAL SCANLINES */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.045) 0px,
+        rgba(255,255,255,0.045) 1px,
+        transparent 3px
+      );
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+      animation: scan-drift 14s linear infinite;
+    }
+
+    /* NAV */
+    nav{
+      display:flex;
+      gap:32px;
+      padding:18px 20px;
+      border-bottom:1px solid #1f1f1f;
+    }
+
+    nav a{
+      color:#dfffe0;
+      text-decoration:none;
+      font-weight:600;
+      font-size:15px;
+      letter-spacing:.3px;
+    }
+
+    nav a:hover{ color:var(--green); }
+
+    /* LAYOUT */
+    .wrap{
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 96px 20px 120px;
+    }
+
+    /* TITLE */
+    h1{
+      margin:0 0 16px;
+      font-size: clamp(40px, 7vw, 68px);
+      font-weight:800;
+      letter-spacing:-1px;
+      color:var(--text);
+      text-shadow:
+        0 0 calc(3px * var(--glow-title)) rgba(234,255,234,0.9),
+        0 0 calc(14px * var(--glow-title)) rgba(57,255,20,0.7),
+        0 0 calc(32px * var(--glow-title)) rgba(57,255,20,0.45),
+        0 0 calc(64px * var(--glow-title)) rgba(57,255,20,0.25);
+    }
+
+    .intro{
+      max-width:600px;
+      font-size:18px;
+      line-height:1.6;
+      margin-bottom:48px;
+      color:#bdebbd;
+    }
+
+    /* CONTACT CARDS */
+    .contact-grid{
+      display:grid;
+      gap:20px;
+    }
+
+    .card{
+      position:relative;
+      padding:22px;
+      border-radius:16px;
+      background:#0e0e0e;
+      border:1px solid #2a2a2a;
+      box-shadow:
+        0 0 18px rgba(57,255,20,0.15),
+        0 0 42px rgba(57,255,20,0.08);
+      overflow:hidden;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.35) 0px,
+        rgba(0,0,0,0.35) 1px,
+        transparent 2px
+      );
+      opacity:.6;
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+
+    .card h2{
+      margin:0 0 6px;
+      font-size:20px;
+      color:var(--text);
+    }
+
+    .card p{
+      margin:0 0 12px;
+      font-size:15px;
+      color:#bdebbd;
+    }
+
+    .contact-link{
+      display:inline-block;
+      font-weight:600;
+      color:var(--green);
+      text-decoration:none;
+      word-break:break-all;
+    }
+
+    .contact-link:hover{
+      text-decoration:underline;
+    }
+
+    /* BUTTONS */
+    .btn-row{
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:14px 20px;
+      border-radius:12px;
+      border:1px solid #2a2a2a;
+      background:#0e0e0e;
+      color:#eaffea;
+      text-decoration:none;
+      font-weight:600;
+      min-width:220px;
+      text-align:center;
+      transition:.2s ease;
+      box-shadow:
+        0 0 calc(10px * var(--glow-button)) rgba(57,255,20,0.18),
+        0 0 calc(24px * var(--glow-button)) rgba(57,255,20,0.10);
+    }
+
+    .btn.primary{
+      background:var(--green);
+      color:#000;
+      border-color:var(--green);
+      box-shadow:
+        0 0 calc(16px * var(--glow-button)) rgba(57,255,20,0.9),
+        0 0 calc(40px * var(--glow-button)) rgba(57,255,20,0.7),
+        0 0 calc(80px * var(--glow-button)) rgba(57,255,20,0.45);
+    }
+
+    .btn:hover{
+      box-shadow:
+        0 0 calc(22px * var(--glow-button)) rgba(57,255,20,1),
+        0 0 calc(60px * var(--glow-button)) rgba(57,255,20,0.85),
+        0 0 calc(120px * var(--glow-button)) rgba(57,255,20,0.55);
+    }
+
+    @keyframes scan-drift{
+      from{ background-position:0 0; }
+      to{ background-position:0 140px; }
+    }
+
+    @keyframes glow-pulse{
+      0%,100%{ opacity:1; }
+      50%{ opacity:.96; }
+    }
+
+    @media (max-width:640px){
+      .btn{ width:100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="https://iangrantart.com" target="_blank" rel="noopener">Art</a>
+    <a href="it.html">IT</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <main class="wrap">
+    <h1>Contact</h1>
+
+    <p class="intro">
+      Open to entry-level IT roles, collaboration, and creative work.
+      Best way to reach me is below.
+    </p>
+
+    <section class="contact-grid">
+      <div class="card">
+        <h2>Email</h2>
+        <p>Direct contact for opportunities or questions.</p>
+        <a class="contact-link" href="mailto:icgrant88@gmail.com">
+          icgrant88@gmail.com
+        </a>
+      </div>
+
+      <div class="card">
+        <h2>Professional Profiles</h2>
+        <p>Resume, experience, and networking.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">
+            LinkedIn
+          </a>
+          <a class="btn" href="https://www.indeed.com/profile/YOUR-INDEED" target="_blank" rel="noopener">
+            Indeed
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
