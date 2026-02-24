@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About | Ian Grant</title>
+  <style>
+    :root{
+      --bg:#050706;
+      --panel: rgba(8,12,10,.72);
+      --panel2: rgba(6,10,8,.55);
+      --grid: rgba(120,255,160,.08);
+      --text: rgba(215,255,230,.92);
+      --muted: rgba(185,255,205,.75);
+      --green:#39ff88;
+      --green2:#14cc6a;
+      --shadow: rgba(57,255,136,.35);
+      --shadow2: rgba(57,255,136,.18);
+      --border: rgba(57,255,136,.35);
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 50% 30%, rgba(57,255,136,.10), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.75)),
+        var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+
+    /* Subtle moving scanlines */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,.00) 0px,
+          rgba(0,0,0,.00) 2px,
+          rgba(0,0,0,.22) 3px
+        );
+      opacity:.70;
+      mix-blend-mode: overlay;
+      animation: scanMove 8s linear infinite;
+      z-index:10;
+    }
+
+    /* CRT glow + vignette */
+    body::after{
+      content:"";
+      position:fixed;
+      inset:-40px;
+      pointer-events:none;
+      background:
+        radial-gradient(closest-side at 50% 50%, rgba(57,255,136,.08), transparent 60%),
+        radial-gradient(closest-side at 50% 50%, transparent 55%, rgba(0,0,0,.55) 88%);
+      opacity:1;
+      z-index:11;
+    }
+
+    @keyframes scanMove{
+      0%{ transform: translateY(0); }
+      100%{ transform: translateY(28px); }
+    }
+
+    /* Flicker */
+    .flicker{
+      animation: flicker 5.5s infinite;
+    }
+    @keyframes flicker{
+      0%, 100% { opacity:1; }
+      42% { opacity:.98; }
+      43% { opacity:.92; }
+      44% { opacity:1; }
+      78% { opacity:.97; }
+      79% { opacity:.90; }
+      80% { opacity:1; }
+    }
+
+    /* NAV */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.75), rgba(0,0,0,.45));
+      border-bottom: 1px solid rgba(57,255,136,.18);
+    }
+    .nav-inner{
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 10px 14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .links{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+      flex-wrap:nowrap;
+      justify-content:center;
+    }
+    .links a{
+      text-decoration:none;
+      color: rgba(200,255,220,.9);
+      font-weight: 700;
+      letter-spacing:.7px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      position:relative;
+      text-shadow: 0 0 10px rgba(57,255,136,.18);
+      white-space: nowrap;
+    }
+    .links a:hover{
+      color: var(--green);
+      box-shadow: 0 0 0 1px rgba(57,255,136,.22), 0 0 24px rgba(57,255,136,.16);
+      background: rgba(57,255,136,.06);
+    }
+    .links a.active{
+      color: var(--green);
+      box-shadow: 0 0 0 1px rgba(57,255,136,.35), 0 0 26px rgba(57,255,136,.22);
+      background: rgba(57,255,136,.08);
+    }
+
+    /* LAYOUT */
+    .wrap{
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 26px 14px 60px;
+      position:relative;
+      z-index:20;
+    }
+
+    .hero{
+      padding: 22px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid rgba(57,255,136,.22);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 18px 60px rgba(0,0,0,.55),
+        0 0 55px rgba(57,255,136,.10);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(57,255,136,.09), transparent 35%),
+        repeating-linear-gradient(90deg, rgba(57,255,136,.045) 0px, rgba(57,255,136,.045) 1px, transparent 2px, transparent 7px);
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    h1{
+      margin: 0 0 8px 0;
+      font-size: clamp(30px, 7vw, 46px);
+      letter-spacing:.6px;
+      color: rgba(225,255,236,.98);
+      text-shadow:
+        0 0 10px rgba(57,255,136,.22),
+        0 0 28px rgba(57,255,136,.14);
+    }
+    .sub{
+      margin: 0 0 12px 0;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing:.3px;
+      font-size: clamp(14px, 3.6vw, 16px);
+      line-height: 1.4;
+    }
+
+    .about{
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(57,255,136,.18);
+    }
+    .about p{
+      margin: 0 0 12px 0;
+      line-height:1.6;
+      color: rgba(215,255,230,.92);
+      text-shadow: 0 0 14px rgba(57,255,136,.09);
+      font-size: 15.5px;
+      max-width: 74ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    @media (min-width: 860px){
+      .grid{ grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+
+    .card{
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(8,12,10,.65), rgba(6,9,8,.55));
+      border: 1px solid rgba(57,255,136,.18);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 14px 50px rgba(0,0,0,.55),
+        0 0 40px rgba(57,255,136,.10);
+      overflow:hidden;
+      position:relative;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(500px 250px at 20% 20%, rgba(57,255,136,.12), transparent 55%),
+        repeating-linear-gradient(180deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,.18) 3px);
+      opacity:.55;
+      pointer-events:none;
+      z-index:1;
+    }
+    .card-inner{
+      position:relative;
+      z-index:2;
+      padding: 14px;
+    }
+    .card h3{
+      margin: 2px 0 10px 0;
+      color: rgba(225,255,236,.98);
+      font-size: 16px;
+      letter-spacing:.4px;
+      text-shadow: 0 0 14px rgba(57,255,136,.12);
+    }
+    .card p{
+      margin: 0;
+      color: rgba(205,255,224,.82);
+      font-size: 14px;
+      line-height:1.55;
+    }
+    .imgwrap{
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(57,255,136,.20);
+      box-shadow: 0 0 0 1px rgba(0,0,0,.35) inset, 0 0 26px rgba(57,255,136,.12);
+      background: rgba(0,0,0,.35);
+    }
+    .imgwrap img{
+      width:100%;
+      height:auto;
+      display:block;
+      filter: contrast(1.08) saturate(1.05);
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing:.6px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 160px;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      position:relative;
+      z-index:2;
+    }
+    .btn-primary{
+      color: rgba(0,0,0,.92);
+      background: linear-gradient(180deg, rgba(57,255,136,1), rgba(20,204,106,1));
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 0 30px rgba(57,255,136,.35),
+        0 0 60px rgba(57,255,136,.18);
+    }
+    .btn-ghost{
+      color: rgba(210,255,228,.92);
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(57,255,136,.22);
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,.35) inset,
+        0 0 26px rgba(57,255,136,.12);
+      text-shadow: 0 0 12px rgba(57,255,136,.16);
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+    .btn:active{
+      transform: translateY(0px);
+      filter: brightness(.98);
+    }
+
+    footer{
+      opacity:.75;
+      margin-top: 22px;
+      padding: 16px 2px 0;
+      border-top: 1px solid rgba(57,255,136,.14);
+      color: rgba(185,255,205,.72);
+      font-size: 12px;
+      letter-spacing:.3px;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      color: rgba(185,255,205,.82);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="links">
+        <a href="index.html">Home</a>
+        <a href="https://iangrantart.com" target="_blank" rel="noopener">Art</a>
+        <a href="it.html">IT</a>
+        <a class="active" href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="hero flicker" aria-label="About Overview">
+      <h1>About</h1>
+      <p class="sub">Systems Thinking • Troubleshooting • Creative Discipline</p>
+
+      <div class="about">
+        <p>I’m an entry-level IT support and systems technician focused on troubleshooting, reliability, and continuous learning.</p>
+        <p>I have hands-on experience with hardware, operating systems, networking basics, and user support. I enjoy solving problems, documenting solutions, and improving systems.</p>
+        <p>I also work as a digital artist specializing in analog-inspired glitch art. That practice sharpens my attention to internal systems—understanding how things function at their core before intentionally pushing, breaking, and rebuilding them in controlled ways.</p>
+
+        <div class="cta-row">
+          <!-- Replace these links with your real resume / projects links -->
+          <a class="btn btn-primary" href="assets/IanGrant_IT_Resume.pdf" target="_blank" rel="noopener">View Resume</a>
+          <a class="btn btn-ghost" href="#projects">Projects</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" id="projects" aria-label="Visuals and projects">
+      <article class="card">
+        <div class="card-inner">
+          <h3>Analog Glitch Practice</h3>
+          <div class="imgwrap">
+            <!-- Put your glitch piece here -->
+            <img src="images/glitch-piece-1.jpg" alt="Analog-inspired glitch artwork" />
+          </div>
+          <p style="margin-top:10px;">
+            Visual research into signal errors, compression artifacts, scan drift, and controlled distortion—built from a systems-first mindset.
+          </p>
+          <p class="mono" style="margin-top:10px;">images/glitch-piece-1.jpg</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-inner">
+          <h3>Systems & Troubleshooting Mindset</h3>
+          <div class="imgwrap">
+            <!-- Put your IT visual here -->
+            <img src="images/it-visual-1.jpg" alt="IT / server / troubleshooting visual" />
+          </div>
+          <p style="margin-top:10px;">
+            Suggested: a clean terminal screenshot (logs + commands), a network diagram, or a server rack / patch panel photo—something that signals “real systems.”
+          </p>
+          <p class="mono" style="margin-top:10px;">images/it-visual-1.jpg</p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <span class="mono">Ian Grant</span> • Entry-Level IT Support & Systems Technician
+    </footer>
+  </main>
+
+  <script>
+    // tiny, subtle CRT jitter (safe on mobile)
+    (function(){
+      const root = document.documentElement;
+      let t = 0;
+      function tick(){
+        t += 1;
+        // very subtle brightness variance
+        const flick = 0.985 + Math.sin(t/22) * 0.01 + (Math.random() * 0.006);
+        root.style.filter = "brightness(" + flick.toFixed(3) + ")";
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+  </script>
+</body>
+</html>
