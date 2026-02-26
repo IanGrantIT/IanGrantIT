@@ -429,8 +429,6 @@
       color:rgba(231,246,239,.70);
     }
 
-
-    
     /* Matrix gap (BRIGHT + GLOW) */
     .matrix-gap{
       position: relative;
@@ -482,10 +480,72 @@
       opacity: 0.6;
     }
 
-
     /* Optional: reduce motion */
     @media (prefers-reduced-motion: reduce){
       body::before{animation:none}
+    }
+
+    /* ===========================
+       FULLSCREEN RESUME MODAL
+       =========================== */
+    .resume-modal{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(6px);
+    }
+    .resume-modal.is-open{ display:block; }
+
+    .resume-modal__top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:12px 12px;
+      border-bottom: 1px solid rgba(120,255,200,.22);
+      background: linear-gradient(180deg, rgba(12,14,18,.88), rgba(7,9,12,.78));
+    }
+
+    .resume-close{
+      border:1px solid rgba(120,255,200,.35);
+      background: rgba(120,255,200,.10);
+      color: var(--ink);
+      padding:10px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor:pointer;
+    }
+    .resume-close:hover{
+      background: rgba(120,255,200,.14);
+      border-color: rgba(120,255,200,.55);
+    }
+
+    .resume-open-newtab{
+      font-size:12px;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid rgba(231,246,239,.18);
+      background: rgba(231,246,239,.04);
+      color: rgba(231,246,239,.90);
+    }
+    .resume-open-newtab:hover{
+      border-color: rgba(231,246,239,.30);
+      background: rgba(231,246,239,.06);
+      text-decoration:none;
+    }
+
+    .resume-modal__body{
+      height: calc(100vh - 58px);
+    }
+    .resume-modal__body iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      background: #0b0d10;
     }
   </style>
 </head>
@@ -512,11 +572,9 @@
     </header>
 
     <!-- MATRIX SCREENSAVER GAP -->
-    <!-- If your GIF filename differs, update src to match what's in /assets/ -->
     <section class="matrix-gap" aria-label="Matrix screensaver">
       <img src="assets/matrix.gif" alt="Matrix code animation" loading="lazy" />
     </section>
-
 
     <!-- HERO -->
     <section class="hero" aria-label="IT overview">
@@ -528,8 +586,8 @@
       </p>
 
       <div class="actions">
-        <!-- TODO: Replace # with your real links/files -->
-        <a class="btn" href="#" target="_blank" rel="noopener">
+        <!-- Resume now opens fullscreen modal -->
+        <a class="btn resume-link" href="assets/Ian_Grant_IT_Resume_Green.pdf">
           <span class="dot" aria-hidden="true"></span>
           View Resume
         </a>
@@ -537,7 +595,7 @@
           <span class="dot" aria-hidden="true"></span>
           Contact
         </a>
-        <a class="btn secondary" href="#" target="_blank" rel="noopener">
+        <a class="btn secondary" href="https://github.com/IanGrantIT" target="_blank" rel="noopener">
           <span class="dot" aria-hidden="true"></span>
           GitHub
         </a>
@@ -546,246 +604,247 @@
 
     <div class="grid">
       <!-- LEFT: SKILLS + PROJECTS -->
-<main>
+      <main>
 
-  <!-- SKILLS -->
-  <section class="card" aria-label="Skills">
-    <div class="hd">
-      <h2>Core Skills</h2>
-    </div>
-    <div class="bd">
-      <div class="split">
-
-        <div class="kv">
-          <b>Systems & OS</b>
-          <span>
-            Windows troubleshooting (accounts, drivers, permissions, event logs),
-            Linux CLI fundamentals, macOS basics via VM testing.
-          </span>
-          <div class="pillrow">
-            <div class="pill">Windows</div>
-            <div class="pill">Linux</div>
-            <div class="pill">macOS</div>
-            <div class="pill">Event Viewer</div>
+        <!-- SKILLS -->
+        <section class="card" aria-label="Skills">
+          <div class="hd">
+            <h2>Core Skills</h2>
           </div>
-        </div>
+          <div class="bd">
+            <div class="split">
 
-        <div class="kv">
-          <b>Networking</b>
-          <span>
-            IP addressing, subnetting fundamentals, ports, DNS, HTTP/HTTPS,
-            NAT, VLAN concepts, firewall rule configuration.
-          </span>
-          <div class="pillrow">
-            <div class="pill">IP / Ports</div>
-            <div class="pill">DNS</div>
-            <div class="pill">NAT</div>
-            <div class="pill">VLAN</div>
-          </div>
-        </div>
+              <div class="kv">
+                <b>Systems & OS</b>
+                <span>
+                  Windows troubleshooting (accounts, drivers, permissions, event logs),
+                  Linux CLI fundamentals, macOS basics via VM testing.
+                </span>
+                <div class="pillrow">
+                  <div class="pill">Windows</div>
+                  <div class="pill">Linux</div>
+                  <div class="pill">macOS</div>
+                  <div class="pill">Event Viewer</div>
+                </div>
+              </div>
 
-        <div class="kv">
-          <b>Hardware & Devices</b>
-          <span>
-            Storage troubleshooting (SSD/HDD), RAM basics, driver conflicts,
-            peripheral configuration, system backups.
-          </span>
-          <div class="pillrow">
-            <div class="pill">SSD / HDD</div>
-            <div class="pill">Drivers</div>
-            <div class="pill">Backups</div>
-            <div class="pill">Device Mgmt</div>
-          </div>
-        </div>
+              <div class="kv">
+                <b>Networking</b>
+                <span>
+                  IP addressing, subnetting fundamentals, ports, DNS, HTTP/HTTPS,
+                  NAT, VLAN concepts, firewall rule configuration.
+                </span>
+                <div class="pillrow">
+                  <div class="pill">IP / Ports</div>
+                  <div class="pill">DNS</div>
+                  <div class="pill">NAT</div>
+                  <div class="pill">VLAN</div>
+                </div>
+              </div>
 
-        <div class="kv">
-          <b>Tools & Platforms</b>
-          <span>
-            GitHub workflows, Supabase fundamentals, VMs, Termux,
-            OPNsense firewall administration.
-          </span>
-          <div class="pillrow">
-            <div class="pill">Github</div>
-            <div class="pill">VMs</div>
-            <div class="pill">OPNsense</div>
-          </div>
-        </div>
+              <div class="kv">
+                <b>Hardware & Devices</b>
+                <span>
+                  Storage troubleshooting (SSD/HDD), RAM basics, driver conflicts,
+                  peripheral configuration, system backups.
+                </span>
+                <div class="pillrow">
+                  <div class="pill">SSD / HDD</div>
+                  <div class="pill">Drivers</div>
+                  <div class="pill">Backups</div>
+                  <div class="pill">Device Mgmt</div>
+                </div>
+              </div>
 
-      </div>
-    </div>
-  </section>
+              <div class="kv">
+                <b>Tools & Platforms</b>
+                <span>
+                  GitHub workflows, Supabase fundamentals, VMs, Termux,
+                  OPNsense firewall administration.
+                </span>
+                <div class="pillrow">
+                  <div class="pill">Github</div>
+                  <div class="pill">VMs</div>
+                  <div class="pill">OPNsense</div>
+                </div>
+              </div>
 
-  <!-- PROJECTS -->
-  <section class="card" aria-label="Projects" style="margin-top:14px;">
-    <div class="hd">
-      <h2>Hands-On Projects</h2>
-    </div>
-
-    <div class="bd">
-
-      <article class="proj">
-  <h3>Raspberry Pi 4 Production Server</h3>
-  <p>
-    Deployed and maintain a Raspberry Pi 4 running as a dedicated
-    home server that actively powers this website. The Pi handles
-    local web hosting, service configuration, and network-level DNS
-    resolution for connected devices. Configured port management,
-    internal routing, and system-level service monitoring to ensure
-    uptime and reliability.
-  </p>
-  <div class="meta">
-    <span class="tag">Raspberry Pi 4</span>
-    <span class="tag">Web Hosting</span>
-    <span class="tag">DNS Server</span>
-    <span class="tag">Service Monitoring</span>
-  </div>
-</article>
-
-      <article class="proj">
-        <h3>Homelab Infrastructure (OPNsense Firewall)</h3>
-        <p>
-          Designed and deployed a segmented homelab network using OPNsense.
-          Configured NAT, VLAN segmentation, firewall rules, and secure
-          WireGuard VPN remote access for testing and isolation.
-        </p>
-        <div class="meta">
-                   <span class="tag">Firewall Rules</span>
-          <span class="tag">NAT</span>
-          <span class="tag">VLAN</span>
-          <span class="tag">WireGuard</span>
-        </div>
-      </article>
-
-      <article class="proj">
-        <h3>Virtual Lab Environment</h3>
-        <p>
-          Configured virtual machines for Linux administration practice,
-          service troubleshooting, and system-level experimentation.
-        </p>
-        <div class="meta">
-          <span class="tag">Linux</span>
-          <span class="tag">VMs</span>
-          <span class="tag">Troubleshooting</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ADDITIONAL EXPERIENCE -->
-  <section class="card" aria-label="Additional Experience" style="margin-top:14px;">
-    <div class="hd">
-      <h2>Additional Technical Experience</h2>
-    </div>
-
-      </article>
-
-      <article class="proj">
-        <h3>DIY Live Sound & Networked Audio Systems</h3>
-        <p>
-          Configured digital audio mixers operating over a local network.
-          Managed PA systems, DJ equipment, and signal routing while
-          diagnosing analog and digital signal flow issues. Fadt ad possible and high stress troubleshooting.
-        </p>
-        <div class="meta">
-          <span class="tag">Signal Flow</span>
-          <span class="tag">Troubleshooting </span>
-          <span class="tag">Routing</span>
-          <span class="tag">Live Systems</span>
-        </div>
-      </article>
-
-      <article class="proj">
-        <h3>Digital Video Signal Processing (Creative Systems)</h3>
-        <p>
-          Routed camera and video signals into computer systems for
-          controlled digital manipulation and encoding experimentation worked into my photography and digital art portfolio. Created A/V installations, lots of troubleshooting and problem solving with setups like that.
-        </p>
-        <div class="meta">
-          <span class="tag">Video Signals</span>
-          <span class="tag">Digital Media</span>
-          <span class="tag">Systems Testing</span>
-          <span class="tag">Glitch Art</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-  <!-- EDUCATION -->
-  <section class="card" aria-label="Education" style="margin-top:14px;">
-    <div class="hd">
-      <h2>Education</h2>
-    </div>
-    <div class="bd">
-
-      <article class="proj">
-        <h3>Bachelor of Arts – Visual Arts</h3>
-        <p>Marlboro College</p>
-        <div class="meta">
-          <span class="tag">Creative Systems Thinking</span>
-          <span class="tag">Visual Communication</span>
-          <span class="tag">Digital Media</span>
-        </div>
-      </article>
-
-      <article class="proj">
-        <h3>Google IT Support Professional Certificate</h3>
-        <p>Coursera</p>
-        <div class="meta">
-          <span class="tag">IT Fundamentals</span>
-          <span class="tag">Networking Basics</span>
-          <span class="tag">System Administration</span>
-        </div>
-      </article>
-
-    </div>
-  </section>
-<div class="kv" style="margin-top:12px;">
-              <b>In The Works</b>
-              <span>
-                Hack The Box // Linux Basics<br>
-                The Bits and Bytes of Computer Networking<br>
-                Jeremy's IT Lab<br>
-                NetworkChuck – What is an IP Address
-              </span>
             </div>
+          </div>
+        </section>
 
-            <div class="kv" style="margin-top:10px;">
-              <b>Certificates In Progress</b>
-              <span>
-                Cisco Systems CCNA<br>
-                CompTIA Security+<br>
-                CompTIA Linux+
-              </span>
+        <!-- PROJECTS -->
+        <section class="card" aria-label="Projects" style="margin-top:14px;">
+          <div class="hd">
+            <h2>Hands-On Projects</h2>
+          </div>
+
+          <div class="bd">
+
+            <article class="proj">
+              <h3>Raspberry Pi 4 Production Server</h3>
+              <p>
+                Deployed and maintain a Raspberry Pi 4 running as a dedicated
+                home server that actively powers this website. The Pi handles
+                local web hosting, service configuration, and network-level DNS
+                resolution for connected devices. Configured port management,
+                internal routing, and system-level service monitoring to ensure
+                uptime and reliability.
+              </p>
+              <div class="meta">
+                <span class="tag">Raspberry Pi 4</span>
+                <span class="tag">Web Hosting</span>
+                <span class="tag">DNS Server</span>
+                <span class="tag">Service Monitoring</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h3>Homelab Infrastructure (OPNsense Firewall)</h3>
+              <p>
+                Designed and deployed a segmented homelab network using OPNsense.
+                Configured NAT, VLAN segmentation, firewall rules, and secure
+                WireGuard VPN remote access for testing and isolation.
+              </p>
+              <div class="meta">
+                <span class="tag">Firewall Rules</span>
+                <span class="tag">NAT</span>
+                <span class="tag">VLAN</span>
+                <span class="tag">WireGuard</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h3>Virtual Lab Environment</h3>
+              <p>
+                Configured virtual machines for Linux administration practice,
+                service troubleshooting, and system-level experimentation.
+              </p>
+              <div class="meta">
+                <span class="tag">Linux</span>
+                <span class="tag">VMs</span>
+                <span class="tag">Troubleshooting</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ADDITIONAL EXPERIENCE -->
+        <section class="card" aria-label="Additional Experience" style="margin-top:14px;">
+          <div class="hd">
+            <h2>Additional Technical Experience</h2>
+          </div>
+
+          <div class="bd">
+            <article class="proj">
+              <h3>DIY Live Sound & Networked Audio Systems</h3>
+              <p>
+                Configured digital audio mixers operating over a local network.
+                Managed PA systems, DJ equipment, and signal routing while
+                diagnosing analog and digital signal flow issues. Fadt ad possible and high stress troubleshooting.
+              </p>
+              <div class="meta">
+                <span class="tag">Signal Flow</span>
+                <span class="tag">Troubleshooting</span>
+                <span class="tag">Routing</span>
+                <span class="tag">Live Systems</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h3>Digital Video Signal Processing (Creative Systems)</h3>
+              <p>
+                Routed camera and video signals into computer systems for
+                controlled digital manipulation and encoding experimentation worked into my photography and digital art portfolio. Created A/V installations, lots of troubleshooting and problem solving with setups like that.
+              </p>
+              <div class="meta">
+                <span class="tag">Video Signals</span>
+                <span class="tag">Digital Media</span>
+                <span class="tag">Systems Testing</span>
+                <span class="tag">Glitch Art</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="card" aria-label="Education" style="margin-top:14px;">
+          <div class="hd">
+            <h2>Education</h2>
+          </div>
+          <div class="bd">
+
+            <article class="proj">
+              <h3>Bachelor of Arts – Visual Arts</h3>
+              <p>Marlboro College</p>
+              <div class="meta">
+                <span class="tag">Creative Systems Thinking</span>
+                <span class="tag">Visual Communication</span>
+                <span class="tag">Digital Media</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h3>Google IT Support Professional Certificate</h3>
+              <p>Coursera</p>
+              <div class="meta">
+                <span class="tag">IT Fundamentals</span>
+                <span class="tag">Networking Basics</span>
+                <span class="tag">System Administration</span>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <div class="kv" style="margin-top:12px;">
+          <b>In The Works</b>
+          <span>
+            Hack The Box // Linux Basics<br>
+            The Bits and Bytes of Computer Networking<br>
+            Jeremy's IT Lab<br>
+            NetworkChuck – What is an IP Address
+          </span>
+        </div>
+
+        <div class="kv" style="margin-top:10px;">
+          <b>Certificates In Progress</b>
+          <span>
+            Cisco Systems CCNA<br>
+            CompTIA Security+<br>
+            CompTIA Linux+
+          </span>
+        </div>
+
+        <!-- METHOD -->
+        <section class="card" aria-label="Method" style="margin-top:14px;">
+          <div class="hd">
+            <h2>Troubleshooting Method</h2>
+          </div>
+          <div class="bd">
+            <div class="split">
+              <div class="kv">
+                <b>1) Isolate</b>
+                <span>Reduce variables and identify root conditions. Ask questions.</span>
+              </div>
+              <div class="kv">
+                <b>2) Reproduce</b>
+                <span>Confirm consistent behavior before applying fixes.</span>
+              </div>
+              <div class="kv">
+                <b>3) Analyze</b>
+                <span>Review logs, configs, device states, and network flow.</span>
+              </div>
+              <div class="kv">
+                <b>4) Resolve + Document</b>
+                <span>Apply structured fixes and document solutions.</span>
+              </div>
             </div>
-  <!-- METHOD -->
-  <section class="card" aria-label="Method" style="margin-top:14px;">
-    <div class="hd">
-      <h2>Troubleshooting Method</h2>
-    </div>
-    <div class="bd">
-      <div class="split">
-        <div class="kv">
-          <b>1) Isolate</b>
-          <span>Reduce variables and identify root conditions. Ask questions.</span>
-        </div>
-        <div class="kv">
-          <b>2) Reproduce</b>
-          <span>Confirm consistent behavior before applying fixes.</span>
-        </div>
-        <div class="kv">
-          <b>3) Analyze</b>
-          <span>Review logs, configs, device states, and network flow.</span>
-        </div>
-        <div class="kv">
-          <b>4) Resolve + Document</b>
-          <span>Apply structured fixes and document solutions.</span>
-        </div>
-      </div>
-    </div>
-  </section>
+          </div>
+        </section>
 
-</main>
+      </main>
 
       <!-- RIGHT: SIDEBAR -->
       <aside>
@@ -835,11 +894,15 @@
           <div class="bd">
             <div class="kv" style="margin-bottom:10px;">
               <b>Resume</b>
-              <span><a href="#" target="_blank" rel="noopener">Add your resume link here</a></span>
+              <span>
+                <a href="assets/Ian_Grant_IT_Resume_Green.pdf" class="resume-link">
+                  Click here to see resume
+                </a>
+              </span>
             </div>
             <div class="kv" style="margin-bottom:10px;">
               <b>GitHub</b>
-              <span><a href="#" target="_blank" rel="noopener">https://github.com/IanGrantIT</a></span>
+              <span><a href="https://github.com/IanGrantIT" target="_blank" rel="noopener">https://github.com/IanGrantIT</a></span>
             </div>
             <div class="kv">
               <b>Email</b>
@@ -863,6 +926,25 @@
     </footer>
   </div>
 
+  <!-- FULLSCREEN RESUME MODAL -->
+  <div id="resumeModal" class="resume-modal" aria-hidden="true">
+    <div class="resume-modal__top">
+      <button id="resumeClose" class="resume-close" type="button" aria-label="Close resume">✕</button>
+      <a id="resumeOpenNewTab" class="resume-open-newtab" href="#" target="_blank" rel="noopener">
+        Open in new tab
+      </a>
+    </div>
+
+    <div class="resume-modal__body">
+      <iframe
+        id="resumeFrame"
+        title="Ian Grant Resume"
+        src=""
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+
   <script>
     // year
     document.getElementById("year").textContent = new Date().getFullYear();
@@ -884,6 +966,53 @@
 
       window.addEventListener('load', onScroll);
       window.addEventListener('scroll', onScroll, { passive:true });
+    })();
+
+    // Resume fullscreen modal (all .resume-link anchors)
+    (function(){
+      const links = Array.from(document.querySelectorAll('.resume-link'));
+      const modal = document.getElementById('resumeModal');
+      const frame = document.getElementById('resumeFrame');
+      const closeBtn = document.getElementById('resumeClose');
+      const openNewTab = document.getElementById('resumeOpenNewTab');
+
+      if(!links.length || !modal || !frame || !closeBtn || !openNewTab) return;
+
+      function openModal(pdfUrl){
+        frame.src = pdfUrl;
+        openNewTab.href = pdfUrl;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        frame.src = ""; // stop PDF loading when closed
+        document.body.style.overflow = '';
+      }
+
+      links.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          // allow normal open in new tab if user long-presses etc.
+          e.preventDefault();
+          const pdfUrl = link.getAttribute('href');
+          if(pdfUrl) openModal(pdfUrl);
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+
+      // click outside the iframe closes
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+
+      // ESC closes
+      window.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+      });
     })();
   </script>
 </body>
