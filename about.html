@@ -32,7 +32,6 @@
       overflow-x:hidden;
     }
 
-    /* Subtle moving scanlines */
     body::before{
       content:"";
       position:fixed;
@@ -51,7 +50,6 @@
       z-index:10;
     }
 
-    /* CRT glow + vignette */
     body::after{
       content:"";
       position:fixed;
@@ -69,7 +67,6 @@
       100%{ transform: translateY(28px); }
     }
 
-    /* Flicker */
     .flicker{
       animation: flicker 5.5s infinite;
     }
@@ -83,7 +80,6 @@
       80% { opacity:1; }
     }
 
-    /* NAV */
     .nav{
       position:sticky;
       top:0;
@@ -129,7 +125,6 @@
       background: rgba(57,255,136,.08);
     }
 
-    /* LAYOUT */
     .wrap{
       max-width: 1020px;
       margin: 0 auto;
@@ -243,6 +238,14 @@
       font-size: 14px;
       line-height:1.55;
     }
+
+    .project-gallery{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
     .imgwrap{
       border-radius: 14px;
       overflow:hidden;
@@ -252,9 +255,20 @@
     }
     .imgwrap img{
       width:100%;
-      height:auto;
+      height:190px;
+      object-fit:cover;
       display:block;
       filter: contrast(1.08) saturate(1.05);
+    }
+
+    @media (max-width: 560px){
+      .project-gallery{
+        grid-template-columns: 1fr;
+      }
+
+      .imgwrap img{
+        height: auto;
+      }
     }
 
     .cta-row{
@@ -346,7 +360,6 @@
         <p>I also work as a digital artist specializing in analog-inspired glitch art. That practice sharpens my attention to internal systems—understanding how things function at their core before intentionally pushing, breaking, and rebuilding them in controlled ways.</p>
 
         <div class="cta-row">
-          <!-- Replace these links with your real resume / projects links -->
           <a class="btn btn-primary" href="assets/IanGrant_IT_Resume.pdf" target="_blank" rel="noopener">View Resume</a>
           <a class="btn btn-ghost" href="#projects">Projects</a>
         </div>
@@ -357,28 +370,38 @@
       <article class="card">
         <div class="card-inner">
           <h3>Analog Glitch Practice</h3>
-          <div class="imgwrap">
-            <!-- Put your glitch piece here -->
-            <img src="images/glitch-piece-1.jpg" alt="Analog-inspired glitch artwork" />
+
+          <div class="project-gallery">
+            <div class="imgwrap">
+              <img src="assets/glitch-piece-1.jpg" alt="Analog-inspired glitch artwork 1" />
+            </div>
+            <div class="imgwrap">
+              <img src="assets/glitch-piece-2.jpg" alt="Analog-inspired glitch artwork 2" />
+            </div>
           </div>
+
           <p style="margin-top:10px;">
             Visual research into signal errors, compression artifacts, scan drift, and controlled distortion—built from a systems-first mindset.
           </p>
-          <p class="mono" style="margin-top:10px;">images/glitch-piece-1.jpg</p>
         </div>
       </article>
 
       <article class="card">
         <div class="card-inner">
           <h3>Systems & Troubleshooting Mindset</h3>
-          <div class="imgwrap">
-            <!-- Put your IT visual here -->
-            <img src="images/it-visual-1.jpg" alt="IT / server / troubleshooting visual" />
+
+          <div class="project-gallery">
+            <div class="imgwrap">
+              <img src="assets/it-visual-1.jpg" alt="IT / server / troubleshooting visual 1" />
+            </div>
+            <div class="imgwrap">
+              <img src="assets/it-visual-2.jpg" alt="IT / server / troubleshooting visual 2" />
+            </div>
           </div>
+
           <p style="margin-top:10px;">
-            Suggested: a clean terminal screenshot (logs + commands), a network diagram, or a server rack / patch panel photo—something that signals “real systems.”
+            Suggested: a clean terminal screenshot, a network diagram, hardware setup, or a server-related visual that signals real troubleshooting and systems work.
           </p>
-          <p class="mono" style="margin-top:10px;">images/it-visual-1.jpg</p>
         </div>
       </article>
     </section>
@@ -389,13 +412,11 @@
   </main>
 
   <script>
-    // tiny, subtle CRT jitter (safe on mobile)
     (function(){
       const root = document.documentElement;
       let t = 0;
       function tick(){
         t += 1;
-        // very subtle brightness variance
         const flick = 0.985 + Math.sin(t/22) * 0.01 + (Math.random() * 0.006);
         root.style.filter = "brightness(" + flick.toFixed(3) + ")";
         requestAnimationFrame(tick);
