@@ -22,10 +22,67 @@
       margin-bottom:0;
     }
 
+    html,
+    body{
+      margin:0 !important;
+      padding:0 !important;
+      width:100%;
+      min-height:100%;
+      background:#000 !important;
+      color:#fff;
+    }
+
+    body{
+      overflow-x:hidden;
+    }
+
+    .site-shell{
+      display:block !important;
+      width:100vw !important;
+      max-width:none !important;
+      min-height:100vh;
+      min-height:100svh;
+      margin:0 !important;
+      padding:0 !important;
+      background:#000 !important;
+    }
+
     .cargo-card{
       position:relative;
       overflow:hidden;
-      background:#000;
+      width:100vw !important;
+      max-width:none !important;
+      min-height:100vh;
+      min-height:100svh;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      border-radius:0 !important;
+      box-shadow:none !important;
+      background:#000 !important;
+      color:#fff;
+    }
+
+    .cargo-card,
+    .cargo-card h1,
+    .cargo-card h2,
+    .cargo-card p,
+    .cargo-card a,
+    .cargo-card a:visited,
+    .statement,
+    .statement p,
+    .footer-links,
+    .footer-links a{
+      color:#fff !important;
+    }
+
+    .cargo-card a{
+      text-shadow:0 0 8px rgba(255,255,255,.65);
+    }
+
+    .statement p,
+    .name{
+      text-shadow:0 2px 12px rgba(0,0,0,.9), 0 0 6px rgba(0,0,0,.9);
     }
 
     .bg-fallback,
@@ -33,7 +90,7 @@
     .bg-tint,
     .halftone,
     .scanlines{
-      position:absolute;
+      position:fixed;
       inset:0;
     }
 
@@ -51,10 +108,10 @@
       position:absolute;
       top:50%;
       left:50%;
-      width:177.78vh;
-      height:100vh;
-      min-width:100vw;
-      min-height:56.25vw;
+      width:100vw;
+      height:56.25vw;
+      min-width:177.78vh;
+      min-height:100vh;
       transform:translate(-50%, -50%);
       border:0;
       pointer-events:none;
@@ -62,6 +119,8 @@
 
     .bg-tint{
       z-index:2;
+      background:rgba(0,0,0,.22);
+      pointer-events:none;
     }
 
     .halftone{
