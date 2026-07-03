@@ -21,15 +21,85 @@
     .statement p:last-child{
       margin-bottom:0;
     }
+
+    .cargo-card{
+      position:relative;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .bg-fallback,
+    .youtube-bg,
+    .bg-tint,
+    .halftone,
+    .scanlines{
+      position:absolute;
+      inset:0;
+    }
+
+    .bg-fallback{
+      z-index:0;
+    }
+
+    .youtube-bg{
+      z-index:1;
+      overflow:hidden;
+      pointer-events:none;
+    }
+
+    .youtube-bg iframe{
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:177.78vh;
+      height:100vh;
+      min-width:100vw;
+      min-height:56.25vw;
+      transform:translate(-50%, -50%);
+      border:0;
+      pointer-events:none;
+    }
+
+    .bg-tint{
+      z-index:2;
+    }
+
+    .halftone{
+      z-index:3;
+      pointer-events:none;
+    }
+
+    .scanlines{
+      z-index:4;
+      pointer-events:none;
+    }
+
+    .menu-button,
+    .top-id,
+    .page-content,
+    .overlay-menu{
+      position:relative;
+      z-index:5;
+    }
+
+    .overlay-menu{
+      z-index:30;
+    }
   </style>
 </head>
 <body>
   <main class="site-shell">
     <section class="cargo-card" aria-label="Ian Grant artist homepage">
       <div class="bg-fallback"></div>
-      <video class="bg-video" autoplay muted loop playsinline poster="assets/background-poster.jpg">
-        <source src="assets/glitch-background.mp4" type="video/mp4">
-      </video>
+      <div class="youtube-bg" aria-hidden="true">
+        <iframe
+          src="https://www.youtube.com/embed/pgfV9XBVn54?autoplay=1&mute=1&controls=0&loop=1&playlist=pgfV9XBVn54&playsinline=1&modestbranding=1&rel=0"
+          title="Background video"
+          frameborder="0"
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
       <div class="bg-tint"></div>
       <div class="halftone"></div>
       <div class="scanlines"></div>
