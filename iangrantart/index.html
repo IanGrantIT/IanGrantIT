@@ -144,6 +144,146 @@
     .overlay-menu{
       z-index:30;
     }
+
+
+    /* Three-dot page menu */
+    .menu-button{
+      position:fixed !important;
+      top:26px !important;
+      right:34px !important;
+      z-index:60 !important;
+      display:flex !important;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:94px;
+      height:52px;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      border-radius:999px;
+      background:transparent !important;
+      box-shadow:none !important;
+      cursor:pointer;
+      appearance:none;
+      -webkit-appearance:none;
+    }
+
+    .menu-button span{
+      display:block !important;
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:rgba(255,255,255,.82);
+      box-shadow:0 0 10px rgba(255,255,255,.45), 0 2px 10px rgba(0,0,0,.85);
+    }
+
+    .menu-button:focus-visible{
+      outline:2px solid rgba(255,255,255,.9);
+      outline-offset:4px;
+    }
+
+    .overlay-menu{
+      position:fixed !important;
+      top:0;
+      right:0;
+      bottom:0;
+      width:min(78vw, 360px);
+      height:100vh;
+      height:100svh;
+      padding:78px 28px 32px;
+      background:rgba(0,0,0,.92);
+      border-left:1px solid rgba(255,255,255,.22);
+      box-shadow:-18px 0 45px rgba(0,0,0,.65);
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+      transform:translateX(110%);
+      transition:transform .24s ease;
+      pointer-events:none;
+      color:#fff !important;
+    }
+
+    .overlay-menu.is-open,
+    body.menu-open .overlay-menu{
+      transform:translateX(0);
+      pointer-events:auto;
+    }
+
+    .overlay-menu h2{
+      margin:0 0 28px;
+      color:#fff !important;
+      font-size:1.15rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      opacity:.78;
+    }
+
+    .overlay-menu nav{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .overlay-menu nav a,
+    .overlay-menu nav a:visited{
+      display:block;
+      color:#fff !important;
+      font-size:clamp(1.5rem, 6vw, 2.25rem);
+      font-weight:800;
+      line-height:1;
+      text-decoration:none;
+      text-shadow:0 0 12px rgba(255,255,255,.3);
+    }
+
+    .overlay-menu nav a:hover,
+    .overlay-menu nav a.active{
+      text-decoration:underline;
+      text-underline-offset:.18em;
+    }
+
+    .close-menu{
+      position:absolute;
+      top:24px;
+      right:28px;
+      width:42px;
+      height:42px;
+      padding:0;
+      border:0;
+      background:transparent;
+      cursor:pointer;
+    }
+
+    .close-menu::before,
+    .close-menu::after{
+      content:"";
+      position:absolute;
+      top:20px;
+      left:8px;
+      width:26px;
+      height:3px;
+      border-radius:999px;
+      background:#fff;
+      box-shadow:0 0 8px rgba(255,255,255,.45);
+    }
+
+    .close-menu::before{ transform:rotate(45deg); }
+    .close-menu::after{ transform:rotate(-45deg); }
+
+    @media (max-width:600px){
+      .menu-button{
+        top:18px !important;
+        right:18px !important;
+        width:84px;
+        height:46px;
+        gap:8px;
+      }
+
+      .menu-button span{
+        width:12px;
+        height:12px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -169,7 +309,6 @@
 
       <div class="top-id">
         <h1 class="name">Ian Grant</h1>
-        <a class="work-link" href="work.html">Work →</a>
       </div>
 
       <div class="page-content home-content">
@@ -210,5 +349,52 @@
     </section>
   </main>
   <script src="script.js"></script>
+
+  <script>
+    (function(){
+      const openButton = document.querySelector('[data-menu-open]');
+      const closeButton = document.querySelector('[data-menu-close]');
+      const menu = document.querySelector('[data-menu]');
+
+      if(!openButton || !menu) return;
+
+      function openMenu(){
+        menu.classList.add('is-open');
+        document.body.classList.add('menu-open');
+        openButton.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeMenu(){
+        menu.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+        openButton.setAttribute('aria-expanded', 'false');
+      }
+
+      openButton.addEventListener('click', function(event){
+        event.stopPropagation();
+        if(menu.classList.contains('is-open')){
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      if(closeButton){
+        closeButton.addEventListener('click', function(event){
+          event.stopPropagation();
+          closeMenu();
+        });
+      }
+
+      menu.addEventListener('click', function(event){
+        event.stopPropagation();
+      });
+
+      document.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', function(event){
+        if(event.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
 </body>
 </html>
